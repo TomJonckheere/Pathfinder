@@ -1,0 +1,7 @@
+package be.pathfinder.dmhelper.comparators;
+
+import java.util.Comparator;
+
+public class InitiativeComparator implements Comparator<T>{
+
+}

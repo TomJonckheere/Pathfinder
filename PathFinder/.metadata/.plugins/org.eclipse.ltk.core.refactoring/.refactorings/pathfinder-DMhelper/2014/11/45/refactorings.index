@@ -1,0 +1,11 @@
+1415193297461	Move compilation unit
+1415195618316	Rename package 'be.pathfincer.dmhelper.util'
+1415196642290	Move packages
+1415196661132	Move packages
+1415196703342	Delete element
+1415196705214	Delete element
+1415354355562	Rename type 'InitiativeComperator'
+1415364156449	Rename type 'Ability'
+1415364173185	Rename field 'ability'
+1415364194982	Rename method 'getAbility'
+1415364217831	Rename type 'AbilityScore'

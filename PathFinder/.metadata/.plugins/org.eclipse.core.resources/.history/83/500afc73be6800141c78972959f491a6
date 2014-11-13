@@ -1,0 +1,195 @@
+package be.pathfinder.dmhelper.model;
+
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+
+import be.pathfinder.dmhelper.constants.Constants;
+import be.pathfinder.dmhelper.enums.AbilityName;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.equalTo;
+
+// TODO: Auto-generated Javadoc
+/**
+ * The Class CombatTest.
+ */
+public class CombatTest {
+
+	/** The combat. */
+	private Combat combat;
+	
+	/** The combatant. */
+	private Combatant combatant;
+	
+	/** The c1. */
+	private Combatant c1;
+	
+	/** The c2. */
+	private Combatant c2;
+	
+	/** The c3. */
+	private Combatant c3;
+	
+	/** The c4. */
+	private Combatant c4;
+	
+	/** The c5. */
+	private Combatant c5;
+
+	private Character character1;
+
+	private Character character2;
+
+	private Character character3;
+
+	private Character character4;
+
+	private Character character5;
+	
+	/**
+	 * Prepares all common parts for the tests.
+	 */
+	@Before
+	public void init(){
+		combat = new Combat();
+	}
+	
+	/**
+	 * Test basic properties.
+	 */
+	@Test
+	public void testBasicProperties(){
+		//prepare
+		combat.setRounds(Constants.INT_ONE);
+		combat.addCharacter(combatant);
+		
+		//assert
+		Assert.assertThat(combat.getRounds(), is(equalTo(Constants.INT_ONE)));
+		Assert.assertThat(combat.getCombatants().get(0), is(equalTo(combatant)));
+	}
+	
+	/**
+	 * Test initiative. Add persons with descending initiatives
+	 */
+	@Test
+	public void testInitiativeTestCase1(){
+		initializeCombatants();
+		c1.setInitiative(20);
+		c2.setInitiative(16);
+		c3.setInitiative(12);
+		c4.setInitiative(8);
+		c5.setInitiative(4);
+		
+		addCombatantsToCombat();
+		
+		combat.orderCombatantsList();
+		
+		verifyInitiative(combat.getCombatants().get(0), c1, Constants.INT_ONE);
+		verifyInitiative(combat.getCombatants().get(1), c2, Constants.INT_TWO);
+		verifyInitiative(combat.getCombatants().get(2), c3, Constants.INT_THREE);
+		verifyInitiative(combat.getCombatants().get(3), c4, Constants.INT_FOUR);
+		verifyInitiative(combat.getCombatants().get(4), c5, Constants.INT_FIVE);
+	}
+	
+	/**
+	 * Test initiative test case 2. Initiatives are in a random order
+	 */
+	@Test
+	public void testInitiativeTestCase2(){
+		initializeCombatants();
+		c1.setInitiative(1);
+		c2.setInitiative(16);
+		c3.setInitiative(4);
+		c4.setInitiative(8);
+		c5.setInitiative(12);
+		
+		addCombatantsToCombat();
+		
+		combat.orderCombatantsList();
+		
+		verifyInitiative(combat.getCombatants().get(0), c2, Constants.INT_ONE);
+		verifyInitiative(combat.getCombatants().get(1), c5, Constants.INT_TWO);
+		verifyInitiative(combat.getCombatants().get(2), c4, Constants.INT_THREE);
+		verifyInitiative(combat.getCombatants().get(3), c3, Constants.INT_FOUR);
+		verifyInitiative(combat.getCombatants().get(4), c1, Constants.INT_FIVE);
+	}
+	
+	/**
+	 * Test initiative test case 3. Initiatives are equal, dexterity is used to determine the order.
+	 */
+	@Test
+	public void testInitiativeTestCase3(){
+		initializeCombatants();
+		initializeCharacters();
+		setupCharacterForInitiativeTests();
+		
+		c1.setInitiative(10);
+		c1.setCharacter(character1);
+		
+		c2.setInitiative(10);
+		c2.setCharacter(character2);
+		
+		c3.setInitiative(10);
+		c3.setCharacter(character3);
+		
+		c4.setInitiative(10);
+		c4.setCharacter(character4);
+		
+		c5.setInitiative(10);
+		c5.setCharacter(character5);
+		
+		addCombatantsToCombat();
+		
+		combat.orderCombatantsList();
+		
+		verifyInitiative(combat.getCombatants().get(0), c4, Constants.INT_ONE);
+		verifyInitiative(combat.getCombatants().get(1), c5, Constants.INT_TWO);
+		verifyInitiative(combat.getCombatants().get(2), c3, Constants.INT_THREE);
+		verifyInitiative(combat.getCombatants().get(3), c1, Constants.INT_FOUR);
+		verifyInitiative(combat.getCombatants().get(4), c2, Constants.INT_FIVE);
+	}
+	
+	private void verifyInitiative(Combatant combatant, Combatant refCombatant, int rank){
+		Assert.assertThat(combatant, is(equalTo(refCombatant)));
+		Assert.assertThat(combatant.getInitiativeRank(), is(equalTo(rank)));
+	}
+	
+	private void setupCharacterForInitiativeTests(){
+		character1.setDexterity(new Ability(12, AbilityName.DEXTERITY));
+		character2.setDexterity(new Ability(10, AbilityName.DEXTERITY));
+		character3.setDexterity(new Ability(14, AbilityName.DEXTERITY));
+		character4.setDexterity(new Ability(16, AbilityName.DEXTERITY));
+		character5.setDexterity(new Ability(16, AbilityName.DEXTERITY));
+	}
+	
+	private void initializeCharacters(){
+		character1 = new Character();
+		character2 = new Character();
+		character3 = new Character();
+		character4 = new Character();
+		character5 = new Character();
+	}
+	
+	/**
+	 * Initialize combatants.
+	 */
+	private void initializeCombatants(){
+		c1 = new Combatant();
+		c2 = new Combatant();
+		c3 = new Combatant();
+		c4 = new Combatant();
+		c5 = new Combatant();
+	}
+	
+	/**
+	 * Adds the combatants to combat.
+	 */
+	private void addCombatantsToCombat(){
+		combat.addCharacter(c1);
+		combat.addCharacter(c2);
+		combat.addCharacter(c3);
+		combat.addCharacter(c4);
+		combat.addCharacter(c5);
+	}
+}

@@ -1,0 +1,8 @@
+package be.test.pivot;
+
+import org.apache.pivot.beans.Bindable;
+import org.apache.pivot.wtk.Window;
+
+public class PushButtons extends Window implements Bindable{
+
+}

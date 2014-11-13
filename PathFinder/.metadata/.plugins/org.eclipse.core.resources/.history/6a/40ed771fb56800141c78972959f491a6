@@ -1,0 +1,90 @@
+package be.pathfinder.dmhelper.model;
+
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+
+import be.pathfinder.dmhelper.constants.Constants;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.equalTo;
+
+// TODO: Auto-generated Javadoc
+/**
+ * The Class CombatTest.
+ */
+public class CombatTest {
+
+	/** The combat. */
+	private Combat combat;
+	
+	/** The combatant. */
+	private Combatant combatant;
+	
+	private Combatant c1;
+	private Combatant c2;
+	private Combatant c3;
+	private Combatant c4;
+	private Combatant c5;
+	
+	/**
+	 * Prepares all common parts for the tests.
+	 */
+	@Before
+	public void init(){
+		combat = new Combat();
+	}
+	
+	/**
+	 * Test basic properties.
+	 */
+	@Test
+	public void testBasicProperties(){
+		//prepare
+		combat.setRounds(Constants.INT_ONE);
+		combat.addCharacter(combatant);
+		
+		//assert
+		Assert.assertThat(combat.getRounds(), is(equalTo(Constants.INT_ONE)));
+		Assert.assertThat(combat.getCombatants().get(0), is(equalTo(combatant)));
+	}
+	
+	/**
+	 * Test initiative. Add persons with descending initiatives
+	 */
+	@Test
+	public void testInitiativeTestCase1(){
+		initializeCombatants();
+		c1.setInitiative(20);
+		c2.setInitiative(16);
+		c3.setInitiative(12);
+		c4.setInitiative(8);
+		c5.setInitiative(4);
+		
+		addCombatantsToCombat();
+		
+		combat.orderCombatantsList();
+		
+		Assert.assertThat(combat.getCombatants().get(0), is(equalTo(c1)));
+		Assert.assertThat(combat.getCombatants().get(1), is(equalTo(c2)));
+		Assert.assertThat(combat.getCombatants().get(2), is(equalTo(c3)));
+		Assert.assertThat(combat.getCombatants().get(3), is(equalTo(c4)));
+		Assert.assertThat(combat.getCombatants().get(4), is(equalTo(c5)));
+	}
+	
+	private void initializeCombatants(){
+		c1 = new Combatant();
+		c2 = new Combatant();
+		c3 = new Combatant();
+		c4 = new Combatant();
+		c5 = new Combatant();
+	}
+	
+	private void addCombatantsToCombat(){
+		combat.addCharacter(c1);
+		combat.addCharacter(c2);
+		combat.addCharacter(c3);
+		combat.addCharacter(c4);
+		combat.addCharacter(c5);
+	}
+}

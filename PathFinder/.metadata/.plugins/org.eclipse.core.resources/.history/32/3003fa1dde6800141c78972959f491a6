@@ -1,0 +1,13 @@
+package be.test.pivot;
+
+import org.apache.pivot.wtk.DesktopApplicationContext;
+
+public class StartProject {
+
+	public static void main(String[] args){
+		//HelloJava hj = new HelloJava();
+		
+		DesktopApplicationContext.main(HelloJava.class, args);
+	}
+	
+}

@@ -1,0 +1,41 @@
+package be.pathfinder.dmhelper.comparators;
+
+import java.util.Comparator;
+
+import be.pathfinder.dmhelper.model.Combatant;
+
+// TODO: Auto-generated Javadoc
+/**
+ * The Class InitiativeComparator.
+ */
+public class InitiativeComparator implements Comparator<Combatant>{
+
+	/* (non-Javadoc)
+	 * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
+	 */
+	@Override
+	public int compare(Combatant combatant1, Combatant combatant2) {
+		if(combatant1.equals(combatant2)){
+			return 0;
+		}
+		if(combatant1.getInitiative() > combatant2.getInitiative()){
+			return 1;
+		}
+		if(combatant1.getInitiative() < combatant2.getInitiative()){
+			return -1;
+		}
+		if(combatant1.getInitiative() == combatant2.getInitiative()){
+			//When the initiative is the same, compare the dexterity score
+			if(combatant1.getCharacter().getDexterity().getAbilityScore() == combatant2.getCharacter().getDexterity().getAbilityScore()){
+				return 0;
+			}
+			if(combatant1.getCharacter().getDexterity().getAbilityScore() > combatant2.getCharacter().getDexterity().getAbilityScore()){
+				return 1;
+			}
+			if(combatant1.getCharacter().getDexterity().getAbilityScore() < combatant2.getCharacter().getDexterity().getAbilityScore()){
+				return -1;
+			}
+		}
+		return 0;
+	}
+}

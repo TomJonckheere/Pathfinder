@@ -1,0 +1,31 @@
+package be.pathfinder.dmhelper.model;
+
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.equalTo;
+
+import be.pathfinder.dmhelper.constants.Constants;
+
+public class CombatTest {
+
+	private Combat combat;
+	private Combatant combatant;
+	
+	@Before
+	public void init(){
+		combat = new Combat();
+	}
+	
+	@Test
+	public void testBasicProperties(){
+		//prepare
+		combat.setRounds(Constants.INT_ONE);
+		combat.addCharacter(combatant);
+		
+		//assert
+		Assert.assertThat(combat.getRounds(), is(equalTo(Constants.INT_ONE)));
+	}
+}

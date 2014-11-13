@@ -1,0 +1,12 @@
+<mainMenu:MainMenu title="hasCode.com - Apache Pivot Example 2 - BXML Template" maximized="true"
+  xmlns:bxml="http://pivot.apache.org/bxml"
+  xmlns:mainMenu="be.pathfinder.dmhelper.starter"
+  xmlns="org.apache.pivot.wtk">
+  <Form>
+  <Form.Section>
+	<Label text="Select file to upload..."/>
+	<PushButton bxml:id="creationButton" buttonData="creationButton"/>
+	<PushButton bxml:id="loadBattleButton" buttonData="loadBattleButton"/>
+	</Form.Section>
+	</Form>
+</mainMenu:MainMenu>

@@ -1,0 +1,22 @@
+package be.pathfinder.dmhelper.model;
+
+import org.junit.Before;
+
+import be.pathfinder.dmhelper.constants.Constants;
+
+public class CombatTest {
+
+	private Combat combat;
+	private Combatant combatant;
+	
+	@Before
+	public void init(){
+		combat = new Combat();
+	}
+	
+	@Test
+	public void testBasicProperties(){
+		combat.setRounds(Constants.INT_ONE);
+		combat.addCharacter(combatant);
+	}
+}

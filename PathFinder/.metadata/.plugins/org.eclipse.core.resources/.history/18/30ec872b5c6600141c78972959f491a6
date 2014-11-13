@@ -1,0 +1,17 @@
+package be.pathfinder.dmhelper.model;
+
+import org.junit.Before;
+
+public class CombatTest {
+
+	private Combat combat;
+	
+	@Before
+	public void init(){
+		combat = new Combat();
+	}
+	
+	public void testBasicProperties(){
+		
+	}
+}

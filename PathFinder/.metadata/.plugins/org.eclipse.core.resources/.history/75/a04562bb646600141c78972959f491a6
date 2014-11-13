@@ -1,0 +1,5 @@
+package be.pathfinder.dmhelper.comparators;
+
+public class InitiativeComperator {
+
+}
