@@ -25,6 +25,17 @@ public class InitiativeComparator implements Comparator<Combatant>{
 			return 1;
 		}
 		if(combatant1.getInitiative() == combatant2.getInitiative()){
+			//NULL CHECKS
+			if(combatant1.getCharacter().getDexterity() == null && combatant2.getCharacter().getDexterity() == null){
+				return 0;
+			}
+			if(combatant1.getCharacter().getDexterity() != null && combatant2.getCharacter().getDexterity() == null){
+				return -1;
+			}
+			if(combatant1.getCharacter().getDexterity() == null && combatant2.getCharacter().getDexterity() != null){
+				return 1;
+			}
+			
 			//When the initiative is the same, compare the dexterity score
 			if(combatant1.getCharacter().getDexterity().getAbilityScore() == combatant2.getCharacter().getDexterity().getAbilityScore()){
 				return 0;

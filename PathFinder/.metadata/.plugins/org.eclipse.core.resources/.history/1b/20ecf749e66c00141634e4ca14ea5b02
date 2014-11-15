@@ -6,7 +6,7 @@ import be.pathfinder.dmhelper.model.Combatant;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class InitiativeComparator.
+ * The Class InitiativeComparator. This class orders the initiative from high to low
  */
 public class InitiativeComparator implements Comparator<Combatant>{
 
@@ -19,10 +19,10 @@ public class InitiativeComparator implements Comparator<Combatant>{
 			return 0;
 		}
 		if(combatant1.getInitiative() > combatant2.getInitiative()){
-			return 1;
+			return -1;
 		}
 		if(combatant1.getInitiative() < combatant2.getInitiative()){
-			return -1;
+			return 1;
 		}
 		if(combatant1.getInitiative() == combatant2.getInitiative()){
 			//When the initiative is the same, compare the dexterity score
@@ -30,10 +30,10 @@ public class InitiativeComparator implements Comparator<Combatant>{
 				return 0;
 			}
 			if(combatant1.getCharacter().getDexterity().getAbilityScore() > combatant2.getCharacter().getDexterity().getAbilityScore()){
-				return 1;
+				return -1;
 			}
 			if(combatant1.getCharacter().getDexterity().getAbilityScore() < combatant2.getCharacter().getDexterity().getAbilityScore()){
-				return -1;
+				return 1;
 			}
 		}
 		return 0;

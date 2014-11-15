@@ -1,9 +1,0 @@
-package be.pathfinder.dmhelper.comparators;
-
-import java.util.Comparator;
-
-import be.pathfinder.dmhelper.model.Combatant;
-
-public class InitiativeComparator implements Comparator<Combatant>{
-
-}
