@@ -10,5 +10,6 @@
 	<classpathentry kind="lib" path="lib/pivot-web-server-2.0.4.jar"/>
 	<classpathentry kind="lib" path="lib/pivot-wtk-2.0.4.jar"/>
 	<classpathentry kind="lib" path="lib/pivot-wtk-terra-2.0.4.jar"/>
+	<classpathentry kind="lib" path="lib/log4j-1.2.17.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -16,7 +16,7 @@ import org.apache.pivot.wtk.Window;
 
 public class MainMenu extends Window implements Application, Bindable {
 
-	private static Logger logger = Logger.getLogger(MainMenu.class);
+	private static Logger log = Logger.getLogger(MainMenu.class);
 	
 	private Form form = null;
 	
@@ -49,8 +49,6 @@ public class MainMenu extends Window implements Application, Bindable {
 	@Override
 	public void startup(Display display, Map<String, String> arg1)
 			throws Exception {
-		
-		logger.debug("startup");
 		
 		BXMLSerializer bxmlSerializer = new BXMLSerializer();
 		
