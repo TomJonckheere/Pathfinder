@@ -12,6 +12,6 @@ public class DmHelperStarter {
 	 */
 	public static void main(String[] args) {
 		logger.info("Starting the pathfinder DM helper application");
-		DesktopApplicationContext.main(CombatManager.class, args);
+		DesktopApplicationContext.main(MainMenu.class, args);
 	}
 }
