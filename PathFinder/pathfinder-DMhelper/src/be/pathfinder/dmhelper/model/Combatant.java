@@ -69,4 +69,39 @@ public class Combatant {
 		this.initiativeRank = initiativeRank;
 	}
 	
+	public boolean isHigherInInitiativeOrder(Combatant other){
+		if(this.equals(other)){
+			return false;
+		}
+		if(this.getInitiative() > other.getInitiative()){
+			return true;
+		}
+		if(this.getInitiative() < other.getInitiative()){
+			return false;
+		}
+		if(this.getInitiative() == other.getInitiative()){
+			//NULL CHECKS
+			if(this.getCharacter().getDexterity() == null && other.getCharacter().getDexterity() == null){
+				return false;
+			}
+			if(this.getCharacter().getDexterity() != null && other.getCharacter().getDexterity() == null){
+				return true;
+			}
+			if(this.getCharacter().getDexterity() == null && other.getCharacter().getDexterity() != null){
+				return false;
+			}
+			
+			//When the initiative is the same, compare the dexterity score
+			if(this.getCharacter().getDexterity().getAbilityScore() == other.getCharacter().getDexterity().getAbilityScore()){
+				return false;
+			}
+			if(this.getCharacter().getDexterity().getAbilityScore() > other.getCharacter().getDexterity().getAbilityScore()){
+				return true;
+			}
+			if(this.getCharacter().getDexterity().getAbilityScore() < other.getCharacter().getDexterity().getAbilityScore()){
+				return false;
+			}
+		}
+		return false;
+	}
 }

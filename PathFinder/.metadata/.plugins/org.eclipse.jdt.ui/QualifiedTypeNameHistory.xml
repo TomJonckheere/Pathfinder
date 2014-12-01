@@ -50,9 +50,10 @@
 <fullyQualifiedTypeName name="org.apache.pivot.wtk.FileBrowserSheet"/>
 <fullyQualifiedTypeName name="org.apache.pivot.wtk.PushButton"/>
 <fullyQualifiedTypeName name="org.apache.pivot.wtk.Label"/>
-<fullyQualifiedTypeName name="org.apache.pivot.wtk.Form"/>
 <fullyQualifiedTypeName name="org.apache.pivot.wtk.Window"/>
 <fullyQualifiedTypeName name="java.util.Map"/>
 <fullyQualifiedTypeName name="org.apache.pivot.wtk.Display"/>
 <fullyQualifiedTypeName name="org.apache.pivot.wtk.MessageType"/>
+<fullyQualifiedTypeName name="org.apache.log4j.Logger"/>
+<fullyQualifiedTypeName name="org.apache.pivot.wtk.Form"/>
 </qualifiedTypeNameHistroy>

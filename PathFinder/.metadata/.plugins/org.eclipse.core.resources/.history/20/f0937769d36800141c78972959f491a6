@@ -1,9 +1,0 @@
-package be.test.pivot;
-
-public class StartProject {
-
-	public static void Main(String args[]){
-		
-	}
-	
-}

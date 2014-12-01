@@ -70,6 +70,9 @@ public final class Constants {
 	/** The Constant INT_FIVE. */
 	public static final int INT_FIVE = 5;
 	
+	/** The Constant INT_TEN. */
+	public static final int INT_TEN = 10;
+	
 	/** The Constant INT_TWENTY. */
 	public static final int INT_TWENTY = 20;
 	

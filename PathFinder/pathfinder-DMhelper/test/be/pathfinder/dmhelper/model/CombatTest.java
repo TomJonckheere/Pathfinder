@@ -58,6 +58,8 @@ public class CombatTest {
 	@Before
 	public void init(){
 		combat = new Combat();
+		initializeCharacters();
+		initializeCombatants();
 	}
 	
 	/**
@@ -67,93 +69,59 @@ public class CombatTest {
 	public void testBasicProperties(){
 		//prepare
 		combat.setRounds(Constants.INT_ONE);
-		combat.addCharacter(combatant);
+		combat.addCombatant(combatant);
 		
 		//assert
 		Assert.assertThat(combat.getRounds(), is(equalTo(Constants.INT_ONE)));
 		Assert.assertThat(combat.getCombatants().get(0), is(equalTo(combatant)));
 	}
-	
+
 	/**
-	 * Test initiative. Add persons with descending initiatives
+	 * The combatants list is null, a new list should be created and the added combatant should be present in the list.
 	 */
 	@Test
-	public void testInitiativeTestCase1(){
-		initializeCombatants();
-		c1.setInitiative(20);
-		c2.setInitiative(16);
-		c3.setInitiative(12);
-		c4.setInitiative(8);
-		c5.setInitiative(4);
-		
-		addCombatantsToCombat();
-		
-		combat.orderCombatantsList();
-		
-		verifyInitiative(combat.getCombatants().get(0), c1, Constants.INT_ONE);
-		verifyInitiative(combat.getCombatants().get(1), c2, Constants.INT_TWO);
-		verifyInitiative(combat.getCombatants().get(2), c3, Constants.INT_THREE);
-		verifyInitiative(combat.getCombatants().get(3), c4, Constants.INT_FOUR);
-		verifyInitiative(combat.getCombatants().get(4), c5, Constants.INT_FIVE);
+	public void testAddCombatantToCombatTestCase1(){
+		combat.setCombatants(null);
+		c1.setInitiative(Constants.INT_TEN);
+		combat.addCombatant(c1);
+		verifyInitiative(combat.getCombatants().get(0), c1, 1);
 	}
 	
 	/**
-	 * Test initiative test case 2. Initiatives are in a random order
+	 * The combatants list is empty, a new list should be created and the added combatant should be present in the list.
 	 */
 	@Test
-	public void testInitiativeTestCase2(){
-		initializeCombatants();
-		c1.setInitiative(1);
-		c2.setInitiative(16);
-		c3.setInitiative(4);
-		c4.setInitiative(8);
-		c5.setInitiative(12);
-		
-		addCombatantsToCombat();
-		
-		combat.orderCombatantsList();
-		
-		verifyInitiative(combat.getCombatants().get(0), c2, Constants.INT_ONE);
-		verifyInitiative(combat.getCombatants().get(1), c5, Constants.INT_TWO);
-		verifyInitiative(combat.getCombatants().get(2), c4, Constants.INT_THREE);
-		verifyInitiative(combat.getCombatants().get(3), c3, Constants.INT_FOUR);
-		verifyInitiative(combat.getCombatants().get(4), c1, Constants.INT_FIVE);
+	public void testAddCombatantToCombatTestCase2(){
+		c1.setInitiative(Constants.INT_TEN);
+		combat.addCombatant(c1);
+		verifyInitiative(combat.getCombatants().get(0), c1, 1);
 	}
 	
 	/**
-	 * Test initiative test case 3. Initiatives are equal, dexterity is used to determine the order.
+	 * Multiple combatants are added in descending order. The order should not change.
 	 */
 	@Test
-	public void testInitiativeTestCase3(){
-		initializeCombatants();
-		initializeCharacters();
-		setupCharacterForInitiativeTests();
+	public void testAddCombatantToCombatTestCase3(){
+		c1.setInitiative(Constants.INT_TEN);
+		c2.setInitiative(9);
+		c3.setInitiative(8);
+		c4.setInitiative(7);
+		c5.setInitiative(6);
 		
-		c1.setInitiative(10);
-		c1.setCharacter(character1);
+		combat.addCombatant(c1);
+		combat.addCombatant(c2);
+		combat.addCombatant(c3);
+		combat.addCombatant(c4);
+		combat.addCombatant(c5);
 		
-		c2.setInitiative(10);
-		c2.setCharacter(character2);
-		
-		c3.setInitiative(10);
-		c3.setCharacter(character3);
-		
-		c4.setInitiative(10);
-		c4.setCharacter(character4);
-		
-		c5.setInitiative(10);
-		c5.setCharacter(character5);
-		
-		addCombatantsToCombat();
-		
-		combat.orderCombatantsList();
-		
-		verifyInitiative(combat.getCombatants().get(0), c4, Constants.INT_ONE);
-		verifyInitiative(combat.getCombatants().get(1), c5, Constants.INT_TWO);
-		verifyInitiative(combat.getCombatants().get(2), c3, Constants.INT_THREE);
-		verifyInitiative(combat.getCombatants().get(3), c1, Constants.INT_FOUR);
-		verifyInitiative(combat.getCombatants().get(4), c2, Constants.INT_FIVE);
+		verifyInitiative(combat.getCombatants().get(0), c1, 1);
+		verifyInitiative(combat.getCombatants().get(0), c2, 2);
+		verifyInitiative(combat.getCombatants().get(0), c3, 3);
+		verifyInitiative(combat.getCombatants().get(0), c4, 4);
+		verifyInitiative(combat.getCombatants().get(0), c5, 5);
 	}
+	
+	
 	
 	/**
 	 * Verify initiative.
@@ -168,25 +136,23 @@ public class CombatTest {
 	}
 	
 	/**
-	 * Setup character for initiative tests.
-	 */
-	private void setupCharacterForInitiativeTests(){
-		character1.setDexterity(new Ability(12, AbilityName.DEXTERITY));
-		character2.setDexterity(new Ability(10, AbilityName.DEXTERITY));
-		character3.setDexterity(new Ability(14, AbilityName.DEXTERITY));
-		character4.setDexterity(new Ability(16, AbilityName.DEXTERITY));
-		character5.setDexterity(new Ability(16, AbilityName.DEXTERITY));
-	}
-	
-	/**
 	 * Initialize characters.
 	 */
 	private void initializeCharacters(){
 		character1 = new Character();
+		character1.setDexterity(new Ability(10, AbilityName.DEXTERITY));
+		
 		character2 = new Character();
+		character2.setDexterity(new Ability(12, AbilityName.DEXTERITY));
+		
 		character3 = new Character();
+		character3.setDexterity(new Ability(14, AbilityName.DEXTERITY));
+		
 		character4 = new Character();
+		character4.setDexterity(new Ability(16, AbilityName.DEXTERITY));
+		
 		character5 = new Character();
+		character5.setDexterity(new Ability(16, AbilityName.DEXTERITY));
 	}
 	
 	/**
@@ -194,20 +160,18 @@ public class CombatTest {
 	 */
 	private void initializeCombatants(){
 		c1 = new Combatant();
+		c1.setCharacter(character1);
+		
 		c2 = new Combatant();
+		c2.setCharacter(character2);
+		
 		c3 = new Combatant();
+		c3.setCharacter(character3);
+		
 		c4 = new Combatant();
+		c4.setCharacter(character4);
+		
 		c5 = new Combatant();
-	}
-	
-	/**
-	 * Adds the combatants to combat.
-	 */
-	private void addCombatantsToCombat(){
-		combat.addCharacter(c1);
-		combat.addCharacter(c2);
-		combat.addCharacter(c3);
-		combat.addCharacter(c4);
-		combat.addCharacter(c5);
+		c5.setCharacter(character5);
 	}
 }

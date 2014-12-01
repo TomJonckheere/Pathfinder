@@ -1,10 +1,9 @@
 package be.pathfinder.dmhelper.model;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-import be.pathfinder.dmhelper.comparators.InitiativeComparator;
+import be.pathfinder.dmhelper.util.CombatUtil;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -60,39 +59,13 @@ public class Combat {
 	public void setCombatants(List<Combatant> combatants) {
 		this.combatants = combatants;
 	}
-	
-	/**
-	 * Orders the combatans list based on the initiative in a descending order. All combatants 
-	 */
-	public void orderCombatantsList(){
-		if(checkInitiatives()){
-			Collections.sort(combatants, new InitiativeComparator());
-			for(int i =0; i< combatants.size(); i++){
-				combatants.get(i).setInitiativeRank(i+1);
-			}
-		}
-	}
-
 
 	/**
- 	 * Adds the combatant to the combatants list. The addition of this combatants doesn't happen ordered on initiative...
+ 	 * Adds the combatant to the combatants list. The addition of this combatants will happen ordered on initiative. 
  	 *
  	 * @param combatant the combatant
  	 */
- 	public void addCharacter(Combatant combatant){
- 		getCombatants().add(combatant);
+ 	public void addCombatant(Combatant combatant){
+ 		this.combatants = CombatUtil.addCombatantToList(combatants, combatant);
 	}
- 	
- 	private boolean checkInitiatives(){
- 		if(this.combatants==null || this.combatants.isEmpty()){
- 			return false;
- 		}else{
- 			for(Combatant combatant: combatants){
- 				if(combatant.getInitiative() == null){
- 					return false;
- 				}
- 			}
- 		}
- 		return true;
- 	}
 }

@@ -1,0 +1,17 @@
+package be.pathfinder.dmhelper.util;
+
+import java.util.List;
+
+import be.pathfinder.dmhelper.model.Combatant;
+
+public final class CombatUtil {
+
+	public List<Combatant> addCombatantToList(List<Combatant> combatants, Combatant combatant){
+		
+	}
+	
+	
+	private CombatUtil(){
+		
+	}
+}
